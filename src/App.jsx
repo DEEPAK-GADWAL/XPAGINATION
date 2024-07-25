@@ -28,28 +28,20 @@ const TableComponent = () => {
     fetchData();
   }, []);
 
-  const handleNext = async () => {
-    try {
-      if (currentPage < Math.ceil(data.length / itemsPerPage)) {
-        await setCurrentPage((prevPage) => prevPage + 1);
-      }
-    } catch (error) {
-      console.error("Error navigating to next page: ", error);
+  const handleNext = () => {
+    if (currentPage < Math.ceil(data.length / itemsPerPage)) {
+      setCurrentPage((prevPage) => prevPage + 1);
     }
   };
 
-  const handlePrevious = async () => {
-    try {
-      if (currentPage > 1) {
-        await setCurrentPage((prevPage) => prevPage - 1);
-      }
-    } catch (error) {
-      console.error("Error navigating to previous page: ", error);
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
     }
   };
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage - 1;
+  const endIndex = startIndex + itemsPerPage;
   const itemsToDisplay = data.slice(startIndex, endIndex);
 
   return (
@@ -78,15 +70,15 @@ const TableComponent = () => {
         </table>
         <div className={styles.pagination}>
           <button
-            className={styles.previous}
+            className="previous"
             onClick={handlePrevious}
             disabled={currentPage === 1}
           >
             Previous
           </button>
-          <span className={styles.pageNumber}>{currentPage}</span>
+          <span className="pageNumber">{currentPage}</span>
           <button
-            className={styles.next}
+            className="next"
             onClick={handleNext}
             disabled={currentPage === Math.ceil(data.length / itemsPerPage)}
           >
@@ -98,4 +90,4 @@ const TableComponent = () => {
   );
 };
 
-export default Table;
+export default TableComponent;
