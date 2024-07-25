@@ -18,7 +18,7 @@ const TableComponent = () => {
         }
         const result = await response.json();
         setData(result);
-        console.log("Data fetched successfully");
+        console.log("Data fetched successfully:", result);
       } catch (error) {
         console.error("Error fetching data: ", error);
         alert("Failed to fetch data. Please try again later.");
@@ -29,14 +29,17 @@ const TableComponent = () => {
   }, []);
 
   const handleNext = () => {
-    if (currentPage < Math.ceil(data.length / itemsPerPage)) {
+    const totalPages = Math.ceil(data.length / itemsPerPage);
+    if (currentPage < totalPages) {
       setCurrentPage((prevPage) => prevPage + 1);
+      console.log("Next button clicked. Moving to page:", currentPage + 1);
     }
   };
 
   const handlePrevious = () => {
     if (currentPage > 1) {
       setCurrentPage((prevPage) => prevPage - 1);
+      console.log("Previous button clicked. Moving to page:", currentPage - 1);
     }
   };
 
