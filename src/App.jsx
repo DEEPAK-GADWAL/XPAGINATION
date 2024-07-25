@@ -28,20 +28,28 @@ const TableComponent = () => {
     fetchData();
   }, []);
 
-  const handleNext = () => {
-    if (currentPage < Math.ceil(data.length / itemsPerPage)) {
-      setCurrentPage((prevPage) => prevPage + 1);
+  const handleNext = async () => {
+    try {
+      if (currentPage < Math.ceil(data.length / itemsPerPage)) {
+        await setCurrentPage((prevPage) => prevPage + 1);
+      }
+    } catch (error) {
+      console.error("Error navigating to next page: ", error);
     }
   };
 
-  const handlePrevious = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prevPage) => prevPage - 1);
+  const handlePrevious = async () => {
+    try {
+      if (currentPage > 1) {
+        await setCurrentPage((prevPage) => prevPage - 1);
+      }
+    } catch (error) {
+      console.error("Error navigating to previous page: ", error);
     }
   };
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
+  const endIndex = startIndex + itemsPerPage - 1;
   const itemsToDisplay = data.slice(startIndex, endIndex);
 
   return (
@@ -90,4 +98,4 @@ const TableComponent = () => {
   );
 };
 
-export default TableComponent;
+export default Table;
