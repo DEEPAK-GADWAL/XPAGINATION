@@ -26,13 +26,21 @@ const TableComponent = () => {
 
   const handleNext = () => {
     if (currentPage < Math.ceil(data.length / itemsPerPage)) {
-      setCurrentPage(currentPage + 1);
+      setCurrentPage((prevPage) => {
+        const newPage = prevPage + 1;
+        console.log("Navigating to next page:", newPage);
+        return newPage;
+      });
     }
   };
 
   const handlePrevious = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      setCurrentPage((prevPage) => {
+        const newPage = prevPage - 1;
+        console.log("Navigating to previous page:", newPage);
+        return newPage;
+      });
     }
   };
 
