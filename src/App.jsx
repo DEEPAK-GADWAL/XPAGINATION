@@ -15,6 +15,7 @@ const TableComponent = () => {
         const response = await fetch(ENDPOINT);
         const result = await response.json();
         setData(result);
+        console.log("Data fetched successfully");
       } catch (error) {
         console.error("Error fetching data: ", error);
         alert("Failed to fetch data. Please try again later.");
@@ -47,6 +48,11 @@ const TableComponent = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const itemsToDisplay = data.slice(startIndex, endIndex);
+
+  useEffect(() => {
+    console.log("Current Page:", currentPage);
+    console.log("Items to Display:", itemsToDisplay);
+  }, [currentPage, itemsToDisplay]);
 
   return (
     <div className="container">
