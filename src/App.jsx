@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from "./App.module.css";
-import axios from "axios";
 
 const ENDPOINT =
   "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json";
@@ -13,8 +12,9 @@ const TableComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(ENDPOINT);
-        setData(response.data);
+        const response = await fetch(ENDPOINT);
+        const result = await response.json();
+        setData(result);
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
