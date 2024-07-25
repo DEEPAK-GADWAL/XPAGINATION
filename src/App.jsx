@@ -70,15 +70,15 @@ const TableComponent = () => {
         </table>
         <div className={styles.pagination}>
           <button
-            className="previous"
+            className={styles.previous}
             onClick={handlePrevious}
             disabled={currentPage === 1}
           >
             Previous
           </button>
-          <span className="pageNumber">{currentPage}</span>
+          <span className={styles.pageNumber}>{currentPage}</span>
           <button
-            className="next"
+            className={styles.next}
             onClick={handleNext}
             disabled={currentPage === Math.ceil(data.length / itemsPerPage)}
           >
