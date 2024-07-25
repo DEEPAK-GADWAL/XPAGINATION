@@ -13,6 +13,9 @@ const TableComponent = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(ENDPOINT);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
         const result = await response.json();
         setData(result);
         console.log("Data fetched successfully");
@@ -27,21 +30,13 @@ const TableComponent = () => {
 
   const handleNext = () => {
     if (currentPage < Math.ceil(data.length / itemsPerPage)) {
-      setCurrentPage((prevPage) => {
-        const newPage = prevPage + 1;
-        console.log("Navigating to next page:", newPage);
-        return newPage;
-      });
+      setCurrentPage((prevPage) => prevPage + 1);
     }
   };
 
   const handlePrevious = () => {
     if (currentPage > 1) {
-      setCurrentPage((prevPage) => {
-        const newPage = prevPage - 1;
-        console.log("Navigating to previous page:", newPage);
-        return newPage;
-      });
+      setCurrentPage((prevPage) => prevPage - 1);
     }
   };
 
@@ -49,13 +44,8 @@ const TableComponent = () => {
   const endIndex = startIndex + itemsPerPage;
   const itemsToDisplay = data.slice(startIndex, endIndex);
 
-  useEffect(() => {
-    console.log("Current Page:", currentPage);
-    console.log("Items to Display:", itemsToDisplay);
-  }, [currentPage, itemsToDisplay]);
-
   return (
-    <div className="container">
+    <div className={styles.container}>
       <h1 className={styles.topHead}>Employee Data Table</h1>
       <div className={styles.tableContainer}>
         <table className={styles.table}>
@@ -80,15 +70,15 @@ const TableComponent = () => {
         </table>
         <div className={styles.pagination}>
           <button
-            className={styles.previous}
+            className="previous"
             onClick={handlePrevious}
             disabled={currentPage === 1}
           >
             Previous
           </button>
-          <span className={styles.pageNumber}>{currentPage}</span>
+          <span className="pageNumber">{currentPage}</span>
           <button
-            className={styles.next}
+            className="next"
             onClick={handleNext}
             disabled={currentPage === Math.ceil(data.length / itemsPerPage)}
           >
